@@ -241,8 +241,9 @@ void xml2json_traverse_node(rapidxml::xml_node<> *xmlnode, rapidjson::Value &jsv
     }
 }
 
-std::string xml2json(const char *xml_str)
+std::string xml2json(const char *xml_str, const int& indent=0)
 {
+    if (indent < 0) { throw std::range_error("indent variable cannot be less than 0."); }
     //file<> fdoc("track_orig.xml"); // could serve another use case
     rapidxml::xml_document<> *xml_doc = new rapidxml::xml_document<>();
     xml_doc->parse<0> (const_cast<char *>(xml_str));
@@ -264,10 +265,20 @@ std::string xml2json(const char *xml_str)
     }
 
     rapidjson::StringBuffer buffer;
-    rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
-    js_doc.Accept(writer);
+
+    const bool prettyWriter = (indent > 0);
+    if (prettyWriter) {
+        rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(buffer);
+        writer.SetIndent(' ', indent);
+        js_doc.Accept(writer);
+    } else {
+        rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+        js_doc.Accept(writer);
+    }
+
     delete xml_doc;
     return buffer.GetString();
+
 }
 
 #endif
