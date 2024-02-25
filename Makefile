@@ -1,4 +1,4 @@
-#CXX = 
+CXX = g++
 
 UNAME := $(shell uname -s)
 ifeq ($(UNAME), Darwin)
@@ -7,25 +7,21 @@ else
 LINKOPTIONS = -Wl,--gc-sections -Wl,--strip-all
 endif
 
-INCLUDE += -I./include/
+# INCLUDE += -I./include/
 COMPILEOPTIONS  = -std=c++11 -O3 -fdata-sections -ffunction-sections
 WARNINGS = -Wall -Wextra -Werror
 
 MAIN 	= xml2json.o
-OBJECTS = xml2json.gch
 EXEC 	= xml2json
 
 #############################################################
 
 all : ${EXEC}
 
-xml2json.gch : include/xml2json.hpp
-	${CXX} ${COMPILEOPTIONS}  -c $< -o $@
-
 ${MAIN} : xml2json.cpp
-	${CXX} ${COMPILEOPTIONS} $(INCLUDE) -c $< -o $@
+	${CXX} ${COMPILEOPTIONS} -c $< -o $@
 
-${EXEC} : ${MAIN} ${OBJECTS}
+${EXEC} : ${MAIN}
 	${CXX} ${LINKOPTIONS} ${MAIN} -o ${EXEC}
 
 clean :

@@ -1,27 +1,26 @@
+// Ilan Mittelman
+// forked from https://github.com/Cheedoong/xml2json
+
+#include <xml2json.hpp>
 #include <iostream>
 #include <sstream>
 #include <fstream>
 
-#include "xml2json.hpp"
-
-using namespace std;
-
-auto convert( const istream &input ) -> void
-{
-    ostringstream oss;
+void convert(const std::istream &input) {
+    std::ostringstream oss;
     oss << input.rdbuf();
-
-    const auto json_str = xml2json( oss.str().data() );
-    cout << json_str << endl;
+    const auto &json_str = xml2json(oss.str().data());
+    std::cout << json_str << std::endl;
 }
 
-auto main( const int argc, const char *const argv[] ) -> int
-{
-    switch ( argc ) {
-        case 1: convert( cin );
-                break;
-        case 2: convert( ifstream( argv[1] ));
-                break;
-        default: exit( EXIT_FAILURE );
+int main(int argc, char *argv[]) {
+    switch (argc) {
+    case 1:
+        convert(std::cin);
+        break;
+    case 2:
+        convert(std::ifstream(argv[1]));
+        break;
     }
+    return 0;
 }
