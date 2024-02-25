@@ -1,7 +1,7 @@
 xml2json
 ========
 
-## A header-only C++ library converts XML to JSON
+## A header-only C++ library converts XML to JSON (2024 fork)
 
 ### Usage
 
@@ -10,11 +10,11 @@ xml2json is a header-only C++ library. Just copy the `./include` folder to syste
 #### Build and Run a Command Line Tool
 ```bash
 make
-./xml2json input.xml
+./xml2json input.xml 2
 ```
 #### C++ API
 ```C++
-std::string xml2json(const char *xml_str)
+std::string xml2json(const char *xml_str, const int& indent=0)
 ```
 
 ### Description
@@ -154,13 +154,3 @@ o.e.a</code>
 </td>
 </tr>
 </tbody></table>
-
-### Tested Under
-+ Linux
-+ Mac OS X
-+ Windows
-+ OpenWRT
-
-### Donate
-![WeChat Pay](https://raw.githubusercontent.com/Cheedoong/xml2json/master/donate/wechatpay_cheedoong.png)  
-![AliPay](https://raw.githubusercontent.com/Cheedoong/xml2json/master/donate/alipay_cheedoong.jpg)
